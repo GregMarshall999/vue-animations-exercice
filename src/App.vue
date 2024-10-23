@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav ref="nav">
     <RouterLink :to="{ name: 'Home' }">Accueil</RouterLink> |
     <RouterLink :to="{ name: 'About' }">A Propos</RouterLink> | 
     <RouterLink :to="{ name: 'Contact' }">Contact</RouterLink>
@@ -10,6 +10,30 @@
     </Transition>
   </RouterView>
 </template>
+
+<script setup>
+import { onMounted, ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
+const nav = ref(null);
+
+const router = useRouter();
+const route = useRoute();
+
+console.log(route);
+
+let links = [];
+onMounted(() => {
+  for(var child of nav.value.children) {
+    links.push(child.href);
+    
+  }
+
+  console.log(links)
+  console.log(links.indexOf('http://localhost:5173/'));
+});
+
+</script>
 
 <style>
 
